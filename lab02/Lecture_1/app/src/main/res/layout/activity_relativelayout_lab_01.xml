@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textViewRed1"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:background="#F78181"
+        android:gravity="center"
+        android:text="Hello" />
+
+    <TextView
+        android:id="@+id/textViewOrange1"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:background="#F7BE81"
+        android:gravity="center"
+        android:text="Hello" />
+
+    <TextView
+        android:id="@+id/textViewRed2"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:layout_alignParentRight="true"
+        android:background="#F78181"
+        android:gravity="center"
+        android:text="Hello" />
+
+    <TextView
+        android:id="@+id/textViewOrange2"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerInParent="true"
+        android:background="#F7BE81"
+        android:gravity="center"
+        android:text="Hello" />
+
+    <TextView
+        android:id="@+id/textViewRed3"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:layout_centerInParent="true"
+        android:background="#F78181"
+        android:gravity="center"
+        android:text="Hello" />
+
+    <TextView
+        android:id="@+id/textViewOrange3"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:background="#F7BE81"
+        android:gravity="center"
+        android:text="Hello" />
+
+    <TextView
+        android:id="@+id/textViewRed4"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:layout_alignParentBottom="true"
+        android:background="#F78181"
+        android:gravity="center"
+        android:text="Hello" />
+
+    <TextView
+        android:id="@+id/textViewOrange4"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:background="#F7BE81"
+        android:gravity="center"
+        android:text="Hello" />
+
+    <TextView
+        android:id="@+id/textViewRed5"
+        android:layout_width="80dp"
+        android:layout_height="120dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="#F78181"
+        android:gravity="center"
+        android:text="Hello" />
+
+</RelativeLayout>
