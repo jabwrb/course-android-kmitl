@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Homework</string>
+    <string name="user_rate"><i><b>randy adams</b> 5 stars</i></string>
+    <string name="acceptance">By continuing, you accept the <u>Terms of Use</u> and <u>Privacy Policy</u>.</string>
+</resources>
