@@ -15,18 +15,16 @@ public class Dot {
     private int centerX;
     private int centerY;
     private int radius;
+    private int color;
 
-    public Dot(OnDotChangedListener listener, int centerX, int centerY, int radius) {
+    public Dot(OnDotChangedListener listener, int centerX, int centerY, int radius, int color) {
         this.listener = listener;
         this.centerX = centerX;
         this.centerY = centerY;
         this.radius = radius;
-    }
+        this.color = color;
 
-    public Dot(int centerX, int centerY, int radius) {
-        this.centerX = centerX;
-        this.centerY = centerY;
-        this.radius = radius;
+        this.listener.onDotChange(this);
     }
 
     public int getCenterX() {
@@ -53,5 +51,15 @@ public class Dot {
 
     public void setRadius(int radius) {
         this.radius = radius;
+        this.listener.onDotChange(this);
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
+        this.listener.onDotChange(this);
     }
 }

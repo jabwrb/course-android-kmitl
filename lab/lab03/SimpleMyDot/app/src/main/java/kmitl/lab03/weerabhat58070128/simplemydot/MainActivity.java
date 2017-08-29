@@ -1,20 +1,21 @@
 package kmitl.lab03.weerabhat58070128.simplemydot;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import kmitl.lab03.weerabhat58070128.simplemydot.model.Dot;
 import kmitl.lab03.weerabhat58070128.simplemydot.view.DotView;
 
 public class MainActivity extends AppCompatActivity
-implements Dot.OnDotChangedListener {
+        implements Dot.OnDotChangedListener {
 
     private DotView dotView;
-    private Dot dot;
+    private ArrayList<Dot> dots;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,21 +23,28 @@ implements Dot.OnDotChangedListener {
         setContentView(R.layout.activity_main);
 
         dotView = (DotView) findViewById(R.id.dotView);
-        dot = new Dot(this, 0, 0, 30);
+        dots = new ArrayList<>();
     }
 
     public void onRandomDot(View view) {
         Random random = new Random();
-        int centerX = random.nextInt(500);
-        int centerY = random.nextInt(500);
+        int radius = random.nextInt(121) + 30;
+        int centerX = random.nextInt((dotView.getWidth() - radius) - radius + 1) + radius; //[(max - min) + 1] + min
+        int centerY = random.nextInt((dotView.getHeight() - radius) - radius + 1) + radius;
+        int color = Color.rgb(random.nextInt(256), random.nextInt(256), random.nextInt(256));
 
-        this.dot.setCenterX(centerX);
-        this.dot.setCenterY(centerY);
+        Dot dot = new Dot(this, centerX, centerY, radius, color);
+        dots.add(dot);
+    }
+
+    public void onClear(View view) {
+        dots.clear();
+        dotView.invalidate();
     }
 
     @Override
     public void onDotChange(Dot dot) {
-        dotView.setDot(dot);
+        dotView.setDots(dots);
         dotView.invalidate();
     }
 }
