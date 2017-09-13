@@ -2,4 +2,8 @@
     <string name="app_name">SimpleMyDot</string>
     <string name="random_dot">RANDOM DOT</string>
     <string name="clear">CLEAR</string>
+    <string-array name="shareble_view">
+        <item>Root view</item>
+        <item>Dot view</item>
+    </string-array>
 </resources>

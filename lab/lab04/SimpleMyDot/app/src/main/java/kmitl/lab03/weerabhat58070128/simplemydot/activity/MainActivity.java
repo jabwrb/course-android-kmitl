@@ -1,6 +1,8 @@
 package kmitl.lab03.weerabhat58070128.simplemydot.activity;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -93,15 +95,26 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void shareImage() {
-        String dirPath = Environment.getExternalStorageDirectory() + "/SimpleMyDot";
-        String fileName = "capture.png";
-        storeImage(getScreenshot(dotView), dirPath, fileName);
+        final String DIR_PATH = Environment.getExternalStorageDirectory() + "/SimpleMyDot";
+        final String FILE_NAME = "capture.png";
 
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("image/*");
-        intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(dirPath, fileName)));
-
-        startActivity(Intent.createChooser(intent, "Share to ..."));
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Share");
+        builder.setItems(R.array.shareble_view, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0: storeImage(getScreenshot(getWindow().getDecorView().getRootView()), DIR_PATH, FILE_NAME);
+                            break;
+                    case 1: storeImage(getScreenshot(dotView), DIR_PATH, FILE_NAME);
+                            break;
+                }
+                sendImage(new File(DIR_PATH, FILE_NAME));
+            }
+        });
+        builder.setNegativeButton("Cancel", null);
+        builder.create();
+        builder.show();
     }
 
     public Bitmap getScreenshot(View view) {
@@ -130,6 +143,14 @@ public class MainActivity extends AppCompatActivity
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void sendImage(File file) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("image/*");
+        intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+
+        startActivity(Intent.createChooser(intent, "Share to"));
     }
 
     public void createDot(int x, int y) {
