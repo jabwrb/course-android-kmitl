@@ -37,8 +37,14 @@ import kmitl.lab03.weerabhat58070128.simplemydot.view.DotView;
  */
 public class DotFragment extends Fragment implements View.OnClickListener, Dots.OnDotsChangeListener, DotView.OnDotViewPressListener {
 
-    private final String KEY_DOTS = "dots";
+    public interface DotFragmentListener {
+        void onDotSelected(Dot dot, int index);
+    }
 
+    public static final String TAG = "DotFragment";
+    private static final String KEY_DOTS = "dots";
+
+    private DotFragmentListener listener;
     private DotView dotView;
     private Dots dots;
     private ImageButton btnShare;
@@ -63,6 +69,7 @@ public class DotFragment extends Fragment implements View.OnClickListener, Dots.
             dots = savedInstanceState.getParcelable(KEY_DOTS);
         }
         dots.setListener(this);
+        listener = (DotFragmentListener) getActivity();
     }
 
     @Override
@@ -95,6 +102,10 @@ public class DotFragment extends Fragment implements View.OnClickListener, Dots.
         super.onSaveInstanceState(outState);
 
         outState.putParcelable(KEY_DOTS, dots);
+    }
+
+    public void updateEditedDot(Dot dot, int index) {
+        dots.setDot(index, dot);
     }
 
     public void onShare() {
@@ -189,6 +200,10 @@ public class DotFragment extends Fragment implements View.OnClickListener, Dots.
         dots.clearAll();
     }
 
+    public void setListener(DotFragmentListener listener) {
+        this.listener = listener;
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -223,7 +238,11 @@ public class DotFragment extends Fragment implements View.OnClickListener, Dots.
 
     @Override
     public void onDotViewLongPressed(int x, int y) {
-        Toast.makeText(getContext(), "LongPressed check", Toast.LENGTH_SHORT).show();
+        Dot dotTouched = dots.findDot(x, y);
+
+        if (dotTouched != null) {
+            listener.onDotSelected(dotTouched, dots.getDotIndex(dotTouched));
+        }
     }
 
     @Override

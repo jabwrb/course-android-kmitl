@@ -68,6 +68,15 @@ public class Dots implements Parcelable {
         this.listener.onDotsChanged(this);
     }
 
+    public void setDot(int index, Dot dot) {
+        this.dots.set(index, dot);
+        this.listener.onDotsChanged(this);
+    }
+
+    public int getDotIndex(Dot dot) {
+        return this.dots.indexOf(dot);
+    }
+
     public Dot findDot(int x, int y) {
         for (int i = dots.size() - 1; i >= 0; i--) {
             Dot dot = dots.get(i);
