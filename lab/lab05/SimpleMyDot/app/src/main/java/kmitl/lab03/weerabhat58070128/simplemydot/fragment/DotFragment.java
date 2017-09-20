@@ -17,7 +17,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -36,7 +35,7 @@ import kmitl.lab03.weerabhat58070128.simplemydot.view.DotView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DotFragment extends Fragment implements View.OnClickListener, Dots.OnDotsChangeListener {
+public class DotFragment extends Fragment implements View.OnClickListener, Dots.OnDotsChangeListener, DotView.OnDotViewPressListener {
 
     private final String KEY_DOTS = "dots";
 
@@ -72,30 +71,11 @@ public class DotFragment extends Fragment implements View.OnClickListener, Dots.
         View rootView = inflater.inflate(R.layout.fragment_dot, container, false);
 
         dotView = (DotView) rootView.findViewById(R.id.dotView);
-        dotView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                int x = (int) event.getX();
-                int y = (int) event.getY();
-
-                if (event.getAction() == event.ACTION_UP) {
-                    Dot dotTouched = dots.findDot(x, y);
-
-                    if (dotTouched == null) {
-                        createDot(x, y);
-                    } else {
-                        dots.removeDot(dotTouched);
-                    }
-                }
-
-                return true;
-            }
-        });
-
         btnShare = (ImageButton) rootView.findViewById(R.id.btnShare);
         btnRandomDot = (Button) rootView.findViewById(R.id.btnRandomDot);
         btnClear = (Button) rootView.findViewById(R.id.btnClear);
 
+        dotView.setListener(this);
         btnShare.setOnClickListener(this);
         btnRandomDot.setOnClickListener(this);
         btnClear.setOnClickListener(this);
@@ -228,6 +208,22 @@ public class DotFragment extends Fragment implements View.OnClickListener, Dots.
     public void onDotsChanged(Dots dots) {
         dotView.setDots(dots);
         dotView.invalidate();
+    }
+
+    @Override
+    public void onDotViewPressed(int x, int y) {
+        Dot dotTouched = dots.findDot(x, y);
+
+        if (dotTouched == null) {
+            createDot(x, y);
+        } else {
+            dots.removeDot(dotTouched);
+        }
+    }
+
+    @Override
+    public void onDotViewLongPressed(int x, int y) {
+        Toast.makeText(getContext(), "LongPressed check", Toast.LENGTH_SHORT).show();
     }
 
     @Override
