@@ -1,4 +1,4 @@
-package kmitl.lab07.weerabhat58070128.lazyinstagram;
+package kmitl.lab07.weerabhat58070128.lazyinstagram.model;
 
 public class UserProfile {
 
@@ -8,6 +8,7 @@ public class UserProfile {
     private int follower;
     private int following;
     private String bio;
+    private Post[] posts;
 
     public String getUrlProfile() {
         return urlProfile;
@@ -55,5 +56,13 @@ public class UserProfile {
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    public Post[] getPosts() {
+        return posts;
+    }
+
+    public void setPosts(Post[] posts) {
+        this.posts = posts;
     }
 }

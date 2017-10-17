@@ -9,51 +9,70 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
-import kmitl.lab07.weerabhat58070128.lazyinstagram.MainActivity;
 import kmitl.lab07.weerabhat58070128.lazyinstagram.R;
+import kmitl.lab07.weerabhat58070128.lazyinstagram.model.Post;
 
-class Holder extends RecyclerView.ViewHolder {
+public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    public ImageView image;
+    public static final int LAYOUT_TYPE_GRID = 0;
+    public static final int LAYOUT_TYPE_LIST = 1;
 
-    public Holder(View itemView) {
-        super(itemView);
-        image = (ImageView) itemView.findViewById(R.id.image);
-    }
-}
-
-public class PostAdapter extends RecyclerView.Adapter<Holder> {
-
-    String[] data = {
-            "https://api.learn2crack.com/android/images/donut.png",
-            "https://api.learn2crack.com/android/images/eclair.png",
-            "https://api.learn2crack.com/android/images/froyo.png",
-            "https://api.learn2crack.com/android/images/ginger.png"
-    };
     private Context context;
+    private Post[] posts;
+    private int itemLayout;
 
-    public PostAdapter(Context context) {
+    public PostAdapter(Context context, Post[] posts) {
         this.context = context;
+        this.posts = posts;
+        this.itemLayout = LAYOUT_TYPE_GRID;
     }
 
     @Override
-    public Holder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View itemView = inflater.inflate(R.layout.post_item, null, false);
+        View itemView;
 
-        Holder holder = new Holder(itemView);
-        return holder;
+        switch (viewType) {
+            case LAYOUT_TYPE_GRID:
+                itemView = inflater.inflate(R.layout.item_grid, null, false);
+                return new GridViewHolder(itemView);
+
+            case LAYOUT_TYPE_LIST:
+                itemView = inflater.inflate(R.layout.item_list, parent, false);
+                return new ListViewHolder(itemView);
+        }
+
+        return null;
     }
 
     @Override
-    public void onBindViewHolder(Holder holder, int position) {
-        ImageView image = holder.image;
-        Glide.with(context).load(data[position]).into(image);
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        switch (holder.getItemViewType()) {
+            case LAYOUT_TYPE_GRID:
+                GridViewHolder gridViewHolder = (GridViewHolder) holder;
+                Glide.with(context).load(posts[position].getUrl()).into(gridViewHolder.image);
+                break;
+
+            case LAYOUT_TYPE_LIST:
+                ListViewHolder listViewHolder = (ListViewHolder) holder;
+                Glide.with(context).load(posts[position].getUrl()).into(listViewHolder.image);
+                listViewHolder.textViewLike.setText(posts[position].getLike() + " likes");
+                listViewHolder.textViewComment.setText(posts[position].getComment() + " comments");
+                break;
+        }
     }
 
     @Override
     public int getItemCount() {
-        return data.length;
+        return posts.length;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return itemLayout;
+    }
+
+    public void setItemLayout(int itemLayout) {
+        this.itemLayout = itemLayout;
+    }
 }

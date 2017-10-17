@@ -1,6 +1,6 @@
 package kmitl.lab07.weerabhat58070128.lazyinstagram.api;
 
-import kmitl.lab07.weerabhat58070128.lazyinstagram.UserProfile;
+import kmitl.lab07.weerabhat58070128.lazyinstagram.model.UserProfile;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
