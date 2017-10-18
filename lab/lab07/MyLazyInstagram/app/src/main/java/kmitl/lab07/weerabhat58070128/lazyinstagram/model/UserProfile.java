@@ -9,6 +9,7 @@ public class UserProfile {
     private int following;
     private String bio;
     private Post[] posts;
+    private boolean isFollow;
 
     public String getUrlProfile() {
         return urlProfile;
@@ -64,5 +65,13 @@ public class UserProfile {
 
     public void setPosts(Post[] posts) {
         this.posts = posts;
+    }
+
+    public boolean isFollow() {
+        return isFollow;
+    }
+
+    public void setFollow(boolean follow) {
+        isFollow = follow;
     }
 }
