@@ -138,8 +138,6 @@ public class TransactionInfoFragment extends Fragment implements View.OnClickLis
         } else {
             updateTransaction();
         }
-
-        listener.onBtnSavePressed();
     }
 
     private void insertTransaction() {
@@ -149,6 +147,11 @@ public class TransactionInfoFragment extends Fragment implements View.OnClickLis
                 transactionInfoDB.transactionInfoDAO().insert(transactionInfo);
 
                 return null;
+            }
+
+            @Override
+            protected void onPostExecute(TransactionInfo transactionInfo) {
+                listener.onBtnSavePressed();
             }
         }.execute();
     }
@@ -161,13 +164,16 @@ public class TransactionInfoFragment extends Fragment implements View.OnClickLis
 
                 return null;
             }
+
+            @Override
+            protected void onPostExecute(TransactionInfo transactionInfo) {
+                listener.onBtnSavePressed();
+            }
         }.execute();
     }
 
     private void onBtnDelete() {
         deleteTransaction();
-
-        listener.onBtnDeletePressed();
     }
 
     private void deleteTransaction() {
@@ -177,6 +183,11 @@ public class TransactionInfoFragment extends Fragment implements View.OnClickLis
                 transactionInfoDB.transactionInfoDAO().delete(transactionInfo);
 
                 return null;
+            }
+
+            @Override
+            protected void onPostExecute(TransactionInfo transactionInfo) {
+                listener.onBtnDeletePressed();
             }
         }.execute();
     }
