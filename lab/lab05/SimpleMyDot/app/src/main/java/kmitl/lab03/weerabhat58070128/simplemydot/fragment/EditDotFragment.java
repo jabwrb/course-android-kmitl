@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.larswerkman.holocolorpicker.ColorPicker;
 
@@ -70,9 +71,9 @@ public class EditDotFragment extends Fragment implements View.OnClickListener {
         btnConfirm = (Button) rootView.findViewById(R.id.btnConfirm);
 
         colorPicker.setOldCenterColor(dot.getColor());
-        editTextX.setHint(Integer.toString(dot.getCenterX()));
-        editTextY.setHint(Integer.toString(dot.getCenterY()));
-        editTextSize.setHint(Integer.toString(dot.getRadius()));
+        editTextX.setText(Integer.toString(dot.getCenterX()));
+        editTextY.setText(Integer.toString(dot.getCenterY()));
+        editTextSize.setText(Integer.toString(dot.getRadius()));
         btnCancel.setOnClickListener(this);
         btnConfirm.setOnClickListener(this);
 
@@ -84,12 +85,15 @@ public class EditDotFragment extends Fragment implements View.OnClickListener {
     }
 
     private void onConfirm() {
-        int centerX = Integer.parseInt(editTextX.getText().toString());
-        int centerY = Integer.parseInt(editTextY.getText().toString());
-        int radius = Integer.parseInt(editTextSize.getText().toString());
-        int color = colorPicker.getColor();
-
-        listener.onConfirmPressed(new Dot(centerX, centerY, radius, color), index);
+        try {
+            int centerX = Integer.parseInt(editTextX.getText().toString());
+            int centerY = Integer.parseInt(editTextY.getText().toString());
+            int radius = Integer.parseInt(editTextSize.getText().toString());
+            int color = colorPicker.getColor();
+            listener.onConfirmPressed(new Dot(centerX, centerY, radius, color), index);
+        } catch (NumberFormatException e) {
+            Toast.makeText(getActivity(), "Please enter the number", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
